@@ -10,8 +10,7 @@ namespace Biblioteca.Models
         public string NomeUsuario { get; set; }
         public string Telefone { get; set; }
         public bool Devolvido { get; set; }
-        
         public int LivroId { get; set; }
-        public Livro Livro { get; set; }
+        public virtual Livro Livro { get; set; }
     }
 }

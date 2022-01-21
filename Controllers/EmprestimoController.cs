@@ -11,11 +11,12 @@ namespace Biblioteca.Controllers
     {
         public IActionResult Cadastro()
         {
+            Autenticacao.CheckLogin(this);
             LivroService livroService = new LivroService();
             EmprestimoService emprestimoService = new EmprestimoService();
 
             CadEmprestimoViewModel cadModel = new CadEmprestimoViewModel();
-            cadModel.Livros = livroService.ListarTodos();
+            cadModel.Livros = livroService.ListarDisponiveis();
             return View(cadModel);
         }
 
@@ -37,15 +38,16 @@ namespace Biblioteca.Controllers
 
         public IActionResult Listagem(string tipoFiltro, string filtro)
         {
-            FiltrosEmprestimos objFiltro = null;
-            if(!string.IsNullOrEmpty(filtro))
+            Autenticacao.CheckLogin(this);
+            FiltrosEmprestimos empFiltro = null;
+            if (!string.IsNullOrEmpty(filtro))
             {
-                objFiltro = new FiltrosEmprestimos();
-                objFiltro.Filtro = filtro;
-                objFiltro.TipoFiltro = tipoFiltro;
+                empFiltro = new FiltrosEmprestimos();
+                empFiltro.Filtro = filtro;
+                empFiltro.TipoFiltro = tipoFiltro;
             }
-            EmprestimoService emprestimoService = new EmprestimoService();
-            return View(emprestimoService.ListarTodos(objFiltro));
+            EmprestimoService service = new EmprestimoService();
+            return View(service.ListarTodos(empFiltro));
         }
 
         public IActionResult Edicao(int id)
@@ -55,7 +57,7 @@ namespace Biblioteca.Controllers
             Emprestimo e = em.ObterPorId(id);
 
             CadEmprestimoViewModel cadModel = new CadEmprestimoViewModel();
-            cadModel.Livros = livroService.ListarTodos();
+            cadModel.Livros = livroService.ListarDisponiveis();
             cadModel.Emprestimo = e;
             
             return View(cadModel);
