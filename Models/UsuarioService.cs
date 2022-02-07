@@ -30,16 +30,16 @@ namespace Biblioteca.Models
             }
         }
 
-        public void Editar(Usuario EditU)
+        public void Editar(Usuario editU)
         {
             using (BibliotecaContext bc = new BibliotecaContext())
             {
-                Usuario antigoU = bc.Usuarios.Find(EditU.Id);
+                Usuario antigoU = bc.Usuarios.Find(editU.Id);
 
-                antigoU.Nome = EditU.Nome;
-                antigoU.Login = EditU.Login;
-                antigoU.Senha = EditU.Senha;
-                antigoU.Tipo = EditU.Tipo;
+                antigoU.Nome = editU.Nome;
+                antigoU.Login = editU.Login;
+                antigoU.Senha = editU.Senha;
+                antigoU.Tipo = editU.Tipo;
 
                 bc.SaveChanges();
             }
