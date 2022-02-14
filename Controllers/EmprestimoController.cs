@@ -36,7 +36,7 @@ namespace Biblioteca.Controllers
             return RedirectToAction("Listagem");
         }
 
-        public IActionResult Listagem(string tipoFiltro, string filtro)
+        public IActionResult Listagem(string tipoFiltro, string filtro, string intensPorPagina, int numDaPagina, int paginaAtual)
         {
             Autenticacao.CheckLogin(this);
             FiltrosEmprestimos empFiltro = null;
@@ -46,6 +46,10 @@ namespace Biblioteca.Controllers
                 empFiltro.Filtro = filtro;
                 empFiltro.TipoFiltro = tipoFiltro;
             }
+
+                ViewData["emprestimosPorPagina"] = (string.IsNullOrEmpty(intensPorPagina) ? 10 : Int32.Parse(intensPorPagina));
+                ViewData["paginaAtual"] = (paginaAtual != 0 ? paginaAtual : 1);
+
             EmprestimoService service = new EmprestimoService();
             return View(service.ListarTodos(empFiltro));
         }

@@ -31,11 +31,6 @@ namespace Biblioteca.Controllers
 
         public IActionResult Listagem(string tipoFiltro, string filtro, string intensPorPagina, int numDaPagina, int paginaAtual)
         {
-
-            Console.WriteLine(" Linha 35 - intensPorPagina" + intensPorPagina);
-            Console.WriteLine(" Linha 36 - numDaPagina" + numDaPagina);
-            Console.WriteLine(" Linha 37 - paginaAtual" + paginaAtual);
-
             Autenticacao.CheckLogin(this);
             FiltrosLivros objFiltro = null;
             if(!string.IsNullOrEmpty(filtro))
